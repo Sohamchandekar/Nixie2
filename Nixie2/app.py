@@ -249,5 +249,4 @@ def admin_upload():
     return render_template('adminupload.html')
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
