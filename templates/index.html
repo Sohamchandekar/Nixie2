@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nixie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index_styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script>
+        function showMessageAndRefresh() {
+            const message = document.getElementById('message');
+            if (message) {
+                message.style.display = 'block';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            }
+        }
+        window.onload = showMessageAndRefresh;
+    </script>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='background3.png') }}");
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nixie DataViewer!</h1>
+        <div id="login-mechanism">
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="input-container">
+                    <label for="user_id">User ID:</label>
+                    <input type="text" id="user_id" name="user_id" required>
+                </div>
+                <div class="input-container">
+                    <label for="user_password">Password:</label>
+                    <input type="password" id="user_password" name="user_password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div id="message">{{ messages[0] }}</div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    <footer>
+        <div id="developer">
+            <h4>Soham 😎</h4>
+        </div>
+    </footer>
+</body>
+</html>
