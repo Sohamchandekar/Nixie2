@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Upload</title>
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Upload</h1>
+
+        {% if session['logged_in_user'] == 'admin' %}
+        <form id="uploadForm" action="{{ url_for('admin_upload') }}" method="post" enctype="multipart/form-data">
+            <label for="file">Select a file:</label>
+            <input type="file" id="file" name="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+            <br><br>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="message"></div>
+        {% else %}
+        <p>You do not have permission to upload files.</p>
+        {% endif %}
+
+        <p><a href="{{ url_for('data_viewing') }}">Back to Data Viewing</a></p>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            var formData = new FormData(this);
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showMessage('success', 'File uploaded successfully. Redirecting to home page...');
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 3000);
+                } else {
+                    showMessage('error', data.message || 'Data successfully Updated');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('error', 'Data successfully Updated');
+            });
+        });
+
+        function showMessage(type, message) {
+            var messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = '';
+
+            var messageClass = type === 'success' ? 'success-message' : 'error-message';
+            var messageElement = document.createElement('p');
+            messageElement.className = messageClass;
+            messageElement.textContent = message;
+
+            messageDiv.appendChild(messageElement);
+        }
+    </script>
+</body>
+</html>

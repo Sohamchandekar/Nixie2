@@ -1,0 +1,53 @@
+/* Message styling */
+#message {
+    display: none;
+    color: red;
+    margin-top: 10px;
+}
+
+/* Additional CSS for login form */
+body {
+    font-family: 'Roboto Mono', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-size: cover;
+}
+
+#login-mechanism {
+    margin-top: 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 5.0px 10.1px 10.1px hsla(0, 0%, 0%, 0.50); /* Box shadow with transparency */
+}
+
+.input-container {
+    margin: 10px 0;
+}
+
+#login-mechanism input[type="text"],
+#login-mechanism input[type="password"],
+#login-mechanism button {
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login-mechanism button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Developer name styling */
+#developer {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
